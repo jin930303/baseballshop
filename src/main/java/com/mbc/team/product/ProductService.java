@@ -11,7 +11,22 @@ public interface ProductService  {
 
 	ProductDTO detail(int itemnum);
 
-	
+	ArrayList<ProductDTO> arbat(String cat2);
+
+	ArrayList<ProductDTO> carbonbat(String cat2);
+
+	ArrayList<ProductDTO> woodbat(String cat2);
+
+	ArrayList<ProductDTO> pengobat(String cat2);
+
+	ArrayList<ProductDTO> youthbat(String cat2);
+
+	ArrayList<ProductDTO> trainingbat(String cat2);
+
+	ArrayList<ProductDTO> batgrip(String cat2);
+
+	ArrayList<ProductDTO> bataccessories(String cat2);
+
 
 }
  

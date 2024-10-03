@@ -21,23 +21,11 @@
       <put-attribute name="body" value="/WEB-INF/views/product/productout.jsp"/>
    </definition> 
    
+   <definition name="productdetailview" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/product/productdetailview.jsp"/>
+   </definition> 
+   
    
 </tiles-definitions>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

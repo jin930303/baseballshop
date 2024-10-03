@@ -178,4 +178,74 @@
 		select to_char(gamedate, 'yyyy-MM-dd') as gamedate, gameresult from iljung
 	</select>
 	
+<!-- 야구소식 -->
+	
+	<insert id="insertsosick">
+		insert into sosick values(#{param1}, #{param2}, snum_seq.nextval, #{param3}, #{param4}, sysdate, 0, #{param5}, #{param6})
+	</insert>
+	
+	<select id="totals" resultType="int">
+   		select count(*) from sosick
+	</select>
+	
+	<select id="pages" resultType="com.mbc.team.board.SosickDTO">
+	   select * from (
+	   select rownum rn,A.* from(  
+	   select id, nickname, snum, stitle, scontents, to_char(sdate, 'yyyy-MM-dd') as sdate, scnt, simage, stag from sosick order by snum desc)A)
+	   where rn between #{start} AND #{end}
+	</select>
+	
+	<select id="sosickdetail" resultType="com.mbc.team.board.SosickDTO">
+		select id, nickname, snum, stitle, scontents, to_char(sdate, 'yyyy-MM-dd') as sdate, scnt, simage, stag from sosick where snum=#{param1}
+	</select>
+	
+	<update id="sosickcount">
+		update sosick set scnt=scnt+1 where snum=#{param1}
+	</update>
+	
+	<delete id="sosickdelete">
+		delete from sosick where snum=#{param1}
+	</delete>
+	
+	<select id="sosickupdateview" resultType="com.mbc.team.board.SosickDTO">
+		select id, nickname, snum, stitle, scontents, to_char(sdate, 'yyyy-MM-dd') as sdate, scnt, simage, stag from sosick where snum=#{param1}
+	</select>
+	
+	<update id="sosickupdate">
+		update sosick set stitle=#{param4}, scontents=#{param5}, simage=#{param6}, stag=#{param7} where snum=#{param1}
+	</update>
+
+	<select id="pagest" resultType="com.mbc.team.board.SosickDTO">
+	   select * from (
+	   select rownum rn,A.* from(  
+	   select id, nickname, snum, stitle, scontents, to_char(sdate, 'yyyy-MM-dd') as sdate, scnt, simage, stag from sosick where stitle like #{param2} order by snum desc)A)
+	   where rn between #{param1.start} AND #{param1.end}
+	</select>
+
+	<select id="pagesc" resultType="com.mbc.team.board.SosickDTO">
+	   select * from (
+	   select rownum rn,A.* from(  
+	   select id, nickname, snum, stitle, scontents, to_char(sdate, 'yyyy-MM-dd') as sdate, scnt, simage, stag from sosick where scontents like #{param2} order by snum desc)A)
+	   where rn between #{param1.start} AND #{param1.end}
+	</select>
+	
+	<select id="pagesn" resultType="com.mbc.team.board.SosickDTO">
+	   select * from (
+	   select rownum rn,A.* from(  
+	   select id, nickname, snum, stitle, scontents, to_char(sdate, 'yyyy-MM-dd') as sdate, scnt, simage, stag from sosick where nickname like #{param2} order by snum desc)A)
+	   where rn between #{param1.start} AND #{param1.end}
+	</select>
+	
+	<select id="totalst" resultType="int">
+   		select count(*) from sosick where stitle like #{svalue}
+	</select>
+	
+	<select id="totalsc" resultType="int">
+   		select count(*) from sosick where scontents like #{svalue}
+	</select>
+	
+	<select id="totalsn" resultType="int">
+   		select count(*) from sosick where nickname like #{svalue}
+	</select>
+	
 </mapper>

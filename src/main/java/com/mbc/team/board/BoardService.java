@@ -11,8 +11,6 @@ public interface BoardService {
 	//공지사항
 	void insertgongji(String id, String nickname, String gtitle, String gcontents, String gimagefn);
 
-	ArrayList<GongjiDTO> gongjiout();
-
 	public int total();
 	public ArrayList<GongjiDTO> page(PageDTO dto);
 
@@ -62,6 +60,30 @@ public interface BoardService {
 	void boardupdate(int cnum, String nickname, String tag, String title, String ccontents, String cimagefn);
 
 	void iljunginput(String gamedate, String gameresult);
-	List<IljungDTO> iljungout();
+	ArrayList<IljungDTO> iljungout();
+
+	void insertsosick(String id, String nickname, String stitle, String scontents, String simagefn, String stag);
+
+	public int totals();
+	public ArrayList<SosickDTO> pages(PageDTO dto);
+
+	SosickDTO sosickdetail(int snum);
+
+	void sosickdelete(int snum);
+
+	SosickDTO sosickupdateview(int snum);
+
+	void sosickupdate(int snum, String id, String nickname, String stitle, String scontents, String simagefn, String stag);
+
+	public int totalst(String svalue);
+	public ArrayList<SosickDTO> pagest(PageDTO dto, String svalue);
+
+	public int totalsc(String svalue);
+	public ArrayList<SosickDTO> pagesc(PageDTO dto, String svalue);
+
+	public int totalsn(String svalue);
+	public ArrayList<SosickDTO> pagesn(PageDTO dto, String svalue);
+
+	void sosickcount(int snum);
 	
 }

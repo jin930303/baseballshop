@@ -13,13 +13,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 @Controller
 public class ProductController {
 	
-	String path = "C:\\mbc\\Somall\\Somall\\teamproject\\src\\main\\webapp\\image";
+	String path = "C:\\teamproject\\src\\main\\webapp\\image";
 
 	@Autowired
 	SqlSession sqlSession;
@@ -63,5 +64,133 @@ public class ProductController {
 		mo.addAttribute("dto" , dto);
 		return "productdetailview";
 		}
+	
+	
+	
+	
+	
+	//카테고리 별로 출력 배트
+	@RequestMapping(value = "arbat" , method = RequestMethod.GET)
+	public String lte5(HttpServletRequest request , Model mo) {
+		String cat2 = "알루미늄 배트";
+		ProductService ps = sqlSession.getMapper(ProductService.class);
+		ArrayList<ProductDTO>list = ps.arbat(cat2);
+		mo.addAttribute("list" , list);
+		return "productout";
+	  }
+	@RequestMapping(value = "carbonbat" , method = RequestMethod.GET)
+	public String lte6(HttpServletRequest request , Model mo) {
+		String cat2 = "카본/컴포짓";
+		ProductService ps = sqlSession.getMapper(ProductService.class);
+		ArrayList<ProductDTO>list = ps.arbat(cat2);
+		mo.addAttribute("list" , list);
+		return "productout";
+	  }
+	@RequestMapping(value = "woodbat" , method = RequestMethod.GET)
+	public String lte7(HttpServletRequest request , Model mo) {
+		String cat2 = "나무배트";
+		ProductService ps = sqlSession.getMapper(ProductService.class);
+		ArrayList<ProductDTO>list = ps.arbat(cat2);
+		mo.addAttribute("list" , list);
+		return "productout";
+	  }
+	@RequestMapping(value = "pungbat" , method = RequestMethod.GET)
+	public String lte8(HttpServletRequest request , Model mo) {
+		String cat2 = "펑고배트";
+		ProductService ps = sqlSession.getMapper(ProductService.class);
+		ArrayList<ProductDTO>list = ps.arbat(cat2);
+		mo.addAttribute("list" , list);
+		return "productout";
+	  }
+	@RequestMapping(value = "youngbat" , method = RequestMethod.GET)
+	public String lte9(HttpServletRequest request , Model mo) {
+		String cat2 = "유소년용 배트";
+		ProductService ps = sqlSession.getMapper(ProductService.class);
+		ArrayList<ProductDTO>list = ps.arbat(cat2);
+		mo.addAttribute("list" , list);
+		return "productout";
+	  }
+	@RequestMapping(value = "trainingbat" , method = RequestMethod.GET)
+	public String lte10(HttpServletRequest request , Model mo) {
+		String cat2 = "트레이닝 배트";
+		ProductService ps = sqlSession.getMapper(ProductService.class);
+		ArrayList<ProductDTO>list = ps.arbat(cat2);
+		mo.addAttribute("list" , list);
+		return "productout";
+	  }
+	@RequestMapping(value = "batgrip" , method = RequestMethod.GET)
+	public String lte11(HttpServletRequest request , Model mo) {
+		String cat2 = "배트그립";
+		ProductService ps = sqlSession.getMapper(ProductService.class);
+		ArrayList<ProductDTO>list = ps.arbat(cat2);
+		mo.addAttribute("list" , list);
+		return "productout";
+	  }
+	@RequestMapping(value = "bataccessories" , method = RequestMethod.GET)
+	public String lte12(HttpServletRequest request , Model mo) {
+		String cat2 = "배트용품";
+		ProductService ps = sqlSession.getMapper(ProductService.class);
+		ArrayList<ProductDTO>list = ps.arbat(cat2);
+		mo.addAttribute("list" , list);
+		return "productout";
+	  }
+	
+	
+	//카테고리 별로 출력 글러브
+	@RequestMapping(value = "pitcherallround" , method = RequestMethod.GET)
+	public String lte13(HttpServletRequest request , Model mo) {
+		String cat2 = "투수/올라운드";
+		ProductService ps = sqlSession.getMapper(ProductService.class);
+		ArrayList<ProductDTO>list = ps.arbat(cat2);
+		mo.addAttribute("list" , list);
+		return "productout";
+	  }
+	@RequestMapping(value = "infielder" , method = RequestMethod.GET)
+	public String lte14(HttpServletRequest request , Model mo) {
+		String cat2 = "내야수";
+		ProductService ps = sqlSession.getMapper(ProductService.class);
+		ArrayList<ProductDTO>list = ps.arbat(cat2);
+		mo.addAttribute("list" , list);
+		return "productout";
+	  }
+	@RequestMapping(value = "outfielder" , method = RequestMethod.GET)
+	public String lte15(HttpServletRequest request , Model mo) {
+		String cat2 = "외야수";
+		ProductService ps = sqlSession.getMapper(ProductService.class);
+		ArrayList<ProductDTO>list = ps.arbat(cat2);
+		mo.addAttribute("list" , list);
+		return "productout";
+	  }
+	@RequestMapping(value = "catchersmitt" , method = RequestMethod.GET)
+	public String lte16(HttpServletRequest request , Model mo) {
+		String cat2 = "포수미트";
+		ProductService ps = sqlSession.getMapper(ProductService.class);
+		ArrayList<ProductDTO>list = ps.arbat(cat2);
+		mo.addAttribute("list" , list);
+		return "productout";
+	  }
+	@RequestMapping(value = "youth" , method = RequestMethod.GET)
+	public String lte17(HttpServletRequest request , Model mo) {
+		String cat2 = "어린이/유소년용";
+		ProductService ps = sqlSession.getMapper(ProductService.class);
+		ArrayList<ProductDTO>list = ps.arbat(cat2);
+		mo.addAttribute("list" , list);
+		return "productout";
+	  }
+	@RequestMapping(value = "glovecare" , method = RequestMethod.GET)
+	public String lte18(HttpServletRequest request , Model mo) {
+		String cat2 = "글러브 관리용품";
+		ProductService ps = sqlSession.getMapper(ProductService.class);
+		ArrayList<ProductDTO>list = ps.arbat(cat2);
+		mo.addAttribute("list" , list);
+		return "productout";
+	  }
+	
+	
+	
+	
+	
+	
+	
 	
 }

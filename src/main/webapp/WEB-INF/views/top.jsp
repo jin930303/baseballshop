@@ -132,8 +132,8 @@ p {
 								<li><a href="productout">상품자료출력</a></li>
 							</ul></li>
 
-						<li><a href="logout"><span class="glyphicon glyphicon-log-out"></span>
-								로그아웃</a></li>
+						<li><a href="logout"><span
+								class="glyphicon glyphicon-log-out"></span> 로그아웃</a></li>
 					</c:when>
 
 					<c:otherwise>
@@ -173,27 +173,27 @@ p {
 				<li class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="#">글러브<span class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li><a href="#">투수/올라운드</a></li>
-						<li><a href="#">내야수</a></li>
-						<li><a href="#">외야수</a></li>
-						<li><a href="#">1루/포수미트</a></li>
-						<li><a href="#">어린이/유소년용</a></li>
-						<li><a href="#">글러브 관리용품</a></li>
+						<li><a href="pitcherallround">투수/올라운드</a></li>
+						<li><a href="infielder">내야수</a></li>
+						<li><a href="outfielder">외야수</a></li>
+						<li><a href="catchersmitt">포수미트</a></li>
+						<li><a href="youth">어린이/유소년용</a></li>
+						<li><a href="glovecare">글러브 관리용품</a></li>
 					</ul></li>
 
 				<li class="dropdown"><a class="dropdown-toggle"
-					data-toggle="dropdown" href="#">배트<span class="caret"></span></a>
+					data-toggle="dropdown" href="">배트<span class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li><a href="#">알루미늄 배트</a></li>
-						<li><a href="#">카본/컴포짓</a></li>
-						<li><a href="#">나무배트</a></li>
-						<li><a href="#">펑고배트</a></li>
-						<li><a href="#">유소년용 배트</a></li>
-						<li><a href="#">트레이닝 배트</a></li>
-						<li><a href="#">소프트볼 배트</a></li>
-						<li><a href="#">배트그립</a></li>
-						<li><a href="#">배트용품</a></li>
+						<li><a href="arbat">알루미늄 배트</a></li>
+						<li><a href="carbonbat">카본/컴포짓</a></li>
+						<li><a href="woodbat">나무배트</a></li>
+						<li><a href="pungbat">펑고배트</a></li>
+						<li><a href="youngbat">유소년용 배트</a></li>
+						<li><a href="trainingbat">트레이닝 배트</a></li>
+						<li><a href="batgrip">배트그립</a></li>
+						<li><a href="bataccessories">배트용품</a></li>
 					</ul></li>
+
 
 				<li class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="#">장갑<span class="caret"></span></a>

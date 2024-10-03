@@ -16,5 +16,9 @@
   select itemnum , image1 , product , price , dimage from product where itemnum=#{param1}
 </select>
 
+<select id="arbat" resultType="com.mbc.team.product.ProductDTO">
+  select * from product where cat2=#{param1}
+</select>
+
 </mapper>
 

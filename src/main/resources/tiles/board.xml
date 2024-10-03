@@ -4,13 +4,14 @@
 "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
 "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
 <tiles-definitions>
-   <definition name="baseLayout" template="/WEB-INF/views/layout.jsp">
-      <put-attribute name="title" value=""/>
-      <put-attribute name="top" value="/WEB-INF/views/top.jsp"/>
-      <put-attribute name="body" value=""/>
-      <put-attribute name="footer" value="/WEB-INF/views/footer.jsp"/>
-   </definition>
-   
+	<definition name="baseLayout"
+		template="/WEB-INF/views/layout.jsp">
+		<put-attribute name="title" value="" />
+		<put-attribute name="top" value="/WEB-INF/views/top.jsp" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="footer"
+			value="/WEB-INF/views/footer.jsp" />
+	</definition>
    
    
     <definition name="gongjiboard" extends="baseLayout">
@@ -78,11 +79,38 @@
       <put-attribute name="body" value="/WEB-INF/views/iljung/iljunginput.jsp"/>
    </definition>
    
-    <definition name="/events" extends="baseLayout">
+    <definition name="gameiljung" extends="baseLayout">
       <put-attribute name="title" value="메인화면"/>
       <put-attribute name="body" value="/WEB-INF/views/iljung/iljung.jsp"/>
    </definition>
+   
+    <definition name="sosickboard" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/sosick/sosickboard.jsp"/>
+   </definition> 
+   
+   <definition name="sosickinput" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/sosick/sosickinput.jsp"/>
+   </definition>
 
+    <definition name="sosickout" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/sosick/sosickout.jsp"/>
+   </definition> 
+   
+    <definition name="sosickupdateview" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/sosick/sosickupdateview.jsp"/>
+   </definition>
+
+    <definition name="sosicksearchview" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/sosick/sosicksearchview.jsp"/>
+	</definition>
+	
+	
+	
 </tiles-definitions>
 
 

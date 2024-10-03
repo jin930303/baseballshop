@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -25,7 +26,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 @Controller
 public class BoardController {
 
-	String savepath = "C:\\mbc\\Somall\\Somall\\teamproject\\src\\main\\webapp\\image";
+	String savepath="C://project//teamproject//src//main//webapp//image";
 	@Autowired
 	SqlSession sqlsession;
 	
@@ -378,15 +379,16 @@ public class BoardController {
 		return "iljung";
 	}
 	
-	@RequestMapping(value = "/events", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "gameiljung", method = RequestMethod.GET)
 	@ResponseBody
 	public List<Map<String, Object>> events() {
 	    BoardService bs = sqlsession.getMapper(BoardService.class);
-	    List<IljungDTO> list = bs.iljungout();
+	    ArrayList<IljungDTO> list = bs.iljungout();
 
 	    if (list == null || list.isEmpty()) {
 	        System.out.println("데이터가 없습니다.");
-	    } else {
+	    } 
+	    else {
 	        System.out.println("데이터 있음: " + list.size() + "개의 일정");
 	    }
 
@@ -394,11 +396,157 @@ public class BoardController {
 	    for (IljungDTO dto : list) {
 	        Map<String, Object> event = new HashMap<>();
 	        event.put("title", dto.getGameresult());
-	        event.put("start", dto.getGamedate()); // 날짜 형식 맞춰주기
+	        event.put("start", dto.getGamedate().toString()); // 기본적으로 시간을 붙임
 	        jsonList.add(event);
 	    }
 	    System.out.println("JSON 데이터: " + jsonList);
 	    return jsonList; // JSON 형식으로 반환
+	}
+	
+	
+	
+	@RequestMapping(value = "/sosickinput", method = RequestMethod.GET)
+	public String sosickinput() {
+		return "sosickinput";
+	}
+	
+	@RequestMapping(value = "/sosicksave", method = RequestMethod.POST)
+	public String sosicksave(MultipartHttpServletRequest mul) throws IllegalStateException, IOException {
+		String id=mul.getParameter("id");
+		String nickname=mul.getParameter("nickname");
+		String stag=mul.getParameter("stag");
+		String stitle=mul.getParameter("stitle");
+		String scontents=mul.getParameter("scontents");
+		MultipartFile mf=mul.getFile("simage");
+		String simagefn=mf.getOriginalFilename();
+		mf.transferTo(new File(savepath+"//"+simagefn));
+		BoardService bs=sqlsession.getMapper(BoardService.class);
+		bs.insertsosick(id, nickname, stitle, scontents, simagefn, stag);
+		return "redirect:/sosickboard";
+	}
+	
+	@RequestMapping(value = "/sosickboard", method = RequestMethod.GET)
+	public String sosickboard(Model mo, PageDTO dto, HttpServletRequest request) {
+		String nowPage=request.getParameter("nowPage");
+		String cntPerPage=request.getParameter("cntPerPage");
+		BoardService bs=sqlsession.getMapper(BoardService.class);
+		int totals=bs.totals();
+		if(nowPage==null && cntPerPage == null) {
+			nowPage="1";
+			cntPerPage="5";
+		}
+		else if(nowPage==null) {
+			nowPage="1";
+		}
+		else if(cntPerPage==null) {
+			cntPerPage="5";
+		} 
+		dto=new PageDTO(totals,Integer.parseInt(nowPage),Integer.parseInt(cntPerPage));
+		mo.addAttribute("paging",dto);
+		mo.addAttribute("list", bs.pages(dto));
+		return "sosickboard";
+	}
+	
+	@RequestMapping(value = "/sosickdetail", method = RequestMethod.GET)
+	public String sosickdetail(Model mo, HttpServletRequest request) {
+		int snum=Integer.parseInt(request.getParameter("snum"));
+		BoardService bs=sqlsession.getMapper(BoardService.class);
+		bs.sosickcount(snum);
+		SosickDTO list=bs.sosickdetail(snum);
+		mo.addAttribute("list",list);
+		return "sosickout";
+	}
+	
+	@RequestMapping(value = "/sosickdelete", method = RequestMethod.GET)
+	public String sosickdelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		int snum=Integer.parseInt(request.getParameter("snum"));
+		BoardService bs=sqlsession.getMapper(BoardService.class);
+		response.setContentType("text/html;charset=utf-8");
+		PrintWriter prw=response.getWriter();
+		prw.print("<script> alert('해당 글을 삭제하였습니다.');</script>");
+		prw.print("<script> location.href='gongjiboard';</script>");
+		prw.close();
+		bs.sosickdelete(snum);
+		return "redirect:/sosickboard";
+	}
+	
+	@RequestMapping(value = "/sosickupdateview", method = RequestMethod.GET)
+	public String sosickupdateview(HttpServletRequest request, Model mo) {
+		int snum=Integer.parseInt(request.getParameter("snum"));
+		BoardService bs=sqlsession.getMapper(BoardService.class);
+		SosickDTO list=bs.sosickupdateview(snum);
+		mo.addAttribute("list", list);
+		return "sosickupdateview";
+	}
+	
+	@RequestMapping(value = "/sosickupdate", method = RequestMethod.POST)
+	public String sosickupdate(HttpServletResponse response, MultipartHttpServletRequest mul) throws IOException {
+		int snum=Integer.parseInt(mul.getParameter("snum"));
+		String id=mul.getParameter("id");
+		String nickname=mul.getParameter("nickname");
+		String stitle=mul.getParameter("stitle");
+		String scontents=mul.getParameter("scontents");
+		String stag=mul.getParameter("stag");
+		MultipartFile mf=mul.getFile("simage");
+		String simagefn=mf.getOriginalFilename();
+		mf.transferTo(new File(savepath+"//"+simagefn));
+		BoardService bs=sqlsession.getMapper(BoardService.class);
+		response.setContentType("text/html;charset=utf-8");
+		PrintWriter prw=response.getWriter();
+		prw.print("<script> alert('수정이 완료되었습니다.');</script>");
+		prw.print("<script> location.href='sosickboard';</script>");
+		prw.close();
+		bs.sosickupdate(snum, id, nickname, stitle, scontents, simagefn, stag);
+		return "redirect:/sosickdetail?snum=" + snum;
+	}
+	
+	@RequestMapping(value = "/sosicksearchsave", method = RequestMethod.POST)
+	public String sosicksearchsave(HttpServletRequest request, Model mo, PageDTO dto, @RequestParam("svalue") String svalue, @RequestParam("sosickkey") String sosickkey, HttpServletResponse response) throws IOException {
+		String nowPage=request.getParameter("nowPage");
+		String cntPerPage=request.getParameter("cntPerPage");
+		BoardService bs=sqlsession.getMapper(BoardService.class);
+		
+		if(nowPage==null && cntPerPage == null) {
+			nowPage="1";
+			cntPerPage="5";
+		}
+		else if(nowPage==null) {
+			nowPage="1";
+		}
+		else if(cntPerPage==null) {
+			cntPerPage="5";
+		} 
+	    if (svalue == null || svalue.trim().equals("")) {
+	        response.setContentType("text/html;charset=utf-8");
+	        PrintWriter prw = response.getWriter();
+			prw.print("<script> alert('검색어를 입력해주세요.');</script>");
+			prw.print("<script> location.href='sosickboard';</script>");
+	        prw.flush();
+	        prw.close();
+	        return null;
+		}
+		else {
+			svalue="%"+svalue+"%";
+			if(sosickkey.equals("stitle")) {
+				int totalst=bs.totalst(svalue);
+				dto=new PageDTO(totalst,Integer.parseInt(nowPage),Integer.parseInt(cntPerPage));
+				mo.addAttribute("paging",dto);
+				mo.addAttribute("list", bs.pagest(dto, svalue));
+			}
+			else if(sosickkey.equals("scontents")) {
+				int totalsc=bs.totalsc(svalue);
+				dto=new PageDTO(totalsc,Integer.parseInt(nowPage),Integer.parseInt(cntPerPage));
+				mo.addAttribute("paging",dto);
+				mo.addAttribute("list", bs.pagesc(dto, svalue));
+			}
+			else {
+				int totalsn=bs.totalsn(svalue);
+				dto=new PageDTO(totalsn,Integer.parseInt(nowPage),Integer.parseInt(cntPerPage));
+				mo.addAttribute("paging",dto);
+				mo.addAttribute("list", bs.pagesn(dto, svalue));
+			}
+			return "sosicksearchview";
+		}
 	}
 
 
